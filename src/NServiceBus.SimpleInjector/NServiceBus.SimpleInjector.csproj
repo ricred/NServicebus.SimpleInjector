@@ -86,10 +86,9 @@
     <Compile Include="ImplicitPropertyInjectionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\packaging\nuget\NServiceBus.Autofac.nuspec">
-      <Link>NServiceBus.Autofac.nuspec</Link>
+    <None Include="..\..\packaging\nuget\NServiceBus.SimpleInjector.nuspec">
+      <Link>NServiceBus.SimpleInjector.nuspec</Link>
     </None>
-    <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

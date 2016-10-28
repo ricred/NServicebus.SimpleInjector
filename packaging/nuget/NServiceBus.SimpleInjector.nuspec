@@ -3,23 +3,22 @@
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>NServiceBus.SimpleInjector</id>
     <title>NServiceBus SimpleInjector</title>
-    <version>$version$</version>
-    <authors>$authors$</authors>
-    <owners>$owners$</owners>
-    <licenseUrl>$licenseUrl$</licenseUrl>
-    <projectUrl>$projectUrl$</projectUrl>
-    <iconUrl>$iconUrl$</iconUrl>
-    <copyright>$copyright$</copyright>
-    <requireLicenseAcceptance>$requireLicenseAcceptance$</requireLicenseAcceptance>
+    <version>1.0.0</version>
+    <authors>WilliamBZA</authors>
+    <owners>WilliamBZA</owners>
+    <licenseUrl>https://github.com/WilliamBZA/NServicebus.SimpleInjector/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/WilliamBZA/NServicebus.SimpleInjector</projectUrl>
+    <copyright>WilliamBZA</copyright>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Adapter for the SimpleInjector IoC Container</description>
     <releaseNotes></releaseNotes>
     <tags>$tags$</tags>
     <dependencies>
       <dependency id="NServiceBus" version="[6.0.0,7.0.0)" />
-      <dependency id="SimpleInjector" version="[3.2.2, 4.0.0)" />
+      <dependency id="SimpleInjector" version="[3.2.4, 3.2.4]" />
     </dependencies>
   </metadata>
   <files>
-    <file src="..\..\binaries\NServiceBus.ObjectBuilder.SimpleInjector.???" target="lib\net452" />
+    <file src="..\..\binaries\*.dll" target="lib\net452" />
   </files>
 </package>
