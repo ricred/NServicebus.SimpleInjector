@@ -23,7 +23,7 @@ namespace NServiceBus.ObjectBuilder
 
             clonedContainer.BeginExecutionContextScope();
 
-            foreach (var reg in parentContainer.GetCurrentRegistrations())//.Where(r => !typeof(IEnumerable).IsAssignableFrom(r.Registration.ImplementationType)))
+            foreach (var reg in parentContainer.GetCurrentRegistrations())
             {
                 if (reg.Lifestyle == Lifestyle.Singleton && !HasComponent(clonedContainer, reg.ServiceType))
                 {
