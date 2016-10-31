@@ -9,9 +9,8 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
     using global::SimpleInjector.Extensions.ExecutionContextScoping;
     using Janitor;
     using System.Threading;
-    using System.Collections;
 
-    public class SimpleInjectorObjectBuilder : Common.IContainer
+    class SimpleInjectorObjectBuilder : Common.IContainer
     {
         [SkipWeaving]
         Container container;

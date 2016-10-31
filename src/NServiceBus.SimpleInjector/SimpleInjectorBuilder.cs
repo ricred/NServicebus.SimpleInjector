@@ -16,7 +16,23 @@ namespace NServiceBus
         /// <returns>The new container wrapper.</returns>
         public override ObjectBuilder.Common.IContainer CreateContainer(ReadOnlySettings settings)
         {
+            ContainerHolder containerHolder;
+            if (settings.TryGet(out containerHolder))
+            {
+                return new SimpleInjectorObjectBuilder(containerHolder.ExistingContainer);
+            }
+
             return new SimpleInjectorObjectBuilder();
         }
+    }
+
+    internal class ContainerHolder
+    {
+        public ContainerHolder(global::SimpleInjector.Container container)
+        {
+            ExistingContainer = container;
+        }
+
+        public global::SimpleInjector.Container ExistingContainer { get; }
     }
 }

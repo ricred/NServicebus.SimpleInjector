@@ -7,12 +7,12 @@ using System.Linq.Expressions;
 namespace NServiceBus.SimpleInjector
 {
     /// <summary>
-    /// 
+    /// Extension methods for configuration collection defaults on the SimpleInjector container
     /// </summary>
     public static class CollectionRegistrationExtensions
     {
         /// <summary>
-        /// 
+        /// Adds support to the container to resolve arrays and lists
         /// </summary>
         /// <param name="container"></param>
         public static void AllowToResolveArraysAndLists(this global::SimpleInjector.Container container)
