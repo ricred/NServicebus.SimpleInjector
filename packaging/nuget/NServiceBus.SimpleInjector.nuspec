@@ -9,6 +9,7 @@
     <licenseUrl>https://github.com/WilliamBZA/NServicebus.SimpleInjector/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/WilliamBZA/NServicebus.SimpleInjector</projectUrl>
     <copyright>WilliamBZA</copyright>
+    <iconUrl>https://raw.githubusercontent.com/WilliamBZA/NServicebus.SimpleInjector/master/src/icon.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Adapter for the SimpleInjector IoC Container</description>
     <releaseNotes></releaseNotes>
