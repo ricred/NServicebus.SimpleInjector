@@ -12,13 +12,13 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Adapter for the SimpleInjector IoC Container</description>
     <releaseNotes></releaseNotes>
-    <tags>$tags$</tags>
     <dependencies>
       <dependency id="NServiceBus" version="[6.0.0,7.0.0)" />
       <dependency id="SimpleInjector" version="[3.2.3, 3.2.7]" />
+      <dependency id="SimpleInjector.Extensions.ExecutionContextScoping" version="[3.2.3, 3.2.7]" />
     </dependencies>
   </metadata>
   <files>
-    <file src="..\..\binaries\*.dll" target="lib\net452" />
+    <file src="..\..\binaries\NServiceBus.SimpleInjector.dll" target="lib\net452" />
   </files>
 </package>
