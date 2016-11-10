@@ -33,7 +33,12 @@
 
             public bool SelectProperty(Type type, PropertyInfo property)
             {
-                return IsImplicitInjectable(property) || core.SelectProperty(type, property);
+                return !IsSagaData(property) && (IsImplicitInjectable(property) || core.SelectProperty(type, property));
+            }
+
+            private bool IsSagaData(PropertyInfo property)
+            {
+                return typeof(IContainSagaData).IsAssignableFrom(property.PropertyType);
             }
 
             private bool IsImplicitInjectable(PropertyInfo property)
