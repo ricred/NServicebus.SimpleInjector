@@ -151,8 +151,7 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
                 }
                 else
                 {
-                    var interfaceRegistration = GetRegistrationFromDependencyLifecycle(dependencyLifecycle, implementedInterface, () => componentFactory());
-                    container.AddRegistration(implementedInterface, interfaceRegistration);
+                    container.AddRegistration(implementedInterface, registration);
                 }
             }
 

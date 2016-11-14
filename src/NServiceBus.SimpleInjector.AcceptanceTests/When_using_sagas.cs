@@ -1,5 +1,6 @@
 ﻿using NServiceBus.AcceptanceTesting;
 using NServiceBus.AcceptanceTests.EndpointTemplates;
+using NServiceBus.Features;
 using NUnit.Framework;
 using SimpleInjector.Extensions.ExecutionContextScoping;
 using System;
@@ -32,18 +33,24 @@ namespace NServiceBus.SimpleInjector.AcceptanceTests
         {
             public Endpoint()
             {
-                EndpointSetup<DefaultServer>(config => config.UseContainer<SimpleInjectorBuilder>());
+                EndpointSetup<DefaultServer>(config => config.EnableFeature<TimeoutManager>());
             }
 
             public class MyMessageHandler : Saga<TestSagaData>,
-                                            IAmStartedByMessages<MyMessage>
+                                            IAmStartedByMessages<MyMessage>,
+                                            IHandleTimeouts<TimeoutMessage>
             {
                 public MyMessageHandler(Context testContext)
                 {
                     this.testContext = testContext;
                 }
 
-                public Task Handle(MyMessage message, IMessageHandlerContext context)
+                public async Task Handle(MyMessage message, IMessageHandlerContext context)
+                {
+                    await RequestTimeout<TimeoutMessage>(context, TimeSpan.FromMilliseconds(1));
+                }
+
+                public Task Timeout(TimeoutMessage state, IMessageHandlerContext context)
                 {
                     testContext.WasCalled = true;
 
@@ -57,6 +64,11 @@ namespace NServiceBus.SimpleInjector.AcceptanceTests
 
                 Context testContext = new Context();
             }
+        }
+
+        public class TimeoutMessage : ICommand
+        {
+
         }
 
         public class MyMessage : ICommand

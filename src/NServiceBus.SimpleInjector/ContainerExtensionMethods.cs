@@ -35,8 +35,7 @@ namespace NServiceBus.ObjectBuilder
             {
                 if (reg.Lifestyle == Lifestyle.Singleton && !HasComponent(clonedContainer, reg.ServiceType))
                 {
-                    // Use the parent container to resolve singletons. This could be problematic :(
-                    clonedContainer.Register(reg.ServiceType, () => parentContainer.GetInstance(reg.ServiceType), reg.Lifestyle);
+                    clonedContainer.Register(reg.ServiceType, reg.GetInstance, reg.Lifestyle);
                 }
                 else
                 {
@@ -51,16 +50,13 @@ namespace NServiceBus.ObjectBuilder
         static IEnumerable<Registration> RegistrationOptions(InstanceProducer registrationToCopy, global::SimpleInjector.Container container)
         {
             yield return CreateRegistrationFromPrivateField(registrationToCopy, container, "instanceCreator");
-
             yield return CreateRegistrationFromPrivateField(registrationToCopy, container, "userSuppliedInstanceCreator");
-
             yield return registrationToCopy.Lifestyle.CreateRegistration(registrationToCopy.ServiceType, registrationToCopy.Registration.ImplementationType, container);
         }
 
         static Registration CreateRegistrationFromPrivateField(InstanceProducer instanceProducer, global::SimpleInjector.Container container, string privateFieldName)
         {
-            var field = instanceProducer.Registration.GetType().GetField(privateFieldName, BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance);
-            var instanceCreator = (Func<object>)field?.GetValue(instanceProducer.Registration);
+            var instanceCreator = (Func<object>)GetPrivateField(instanceProducer.Registration, privateFieldName);
 
             if (instanceCreator != null)
             {
@@ -68,6 +64,14 @@ namespace NServiceBus.ObjectBuilder
             }
 
             return null;
+        }
+
+        static object GetPrivateField(object obj, string fieldName)
+        {
+            var field = obj.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance);
+            var fieldValue = field?.GetValue(obj);
+
+            return fieldValue;
         }
 
         static bool HasComponent(global::SimpleInjector.Container container, Type componentType)
