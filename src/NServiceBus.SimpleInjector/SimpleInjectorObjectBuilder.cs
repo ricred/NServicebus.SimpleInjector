@@ -43,7 +43,7 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
 
         void DisposeManaged()
         {
-            var scope = container.GetCurrentExecutionContextScope();
+            var scope = Lifestyle.Scoped.GetCurrentScope(container);
 
             var scopeTemp = Interlocked.Exchange(ref scope, null);
             if (scopeTemp != null)
