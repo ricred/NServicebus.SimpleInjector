@@ -17,6 +17,7 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
 
         bool isChildContainer;
         bool isBuilt = false;
+        Dictionary<Type, IEnumerable<Registration>> collectionRegistrations = new Dictionary<Type, IEnumerable<Registration>>();
 
         public SimpleInjectorObjectBuilder(Container parentContainer)
         {
@@ -74,6 +75,7 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
             }
 
             isBuilt = true;
+            collectionRegistrations = null;
 
             return container.GetInstance(typeToBuild);
         }
@@ -83,6 +85,7 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
             if (HasComponent(typeToBuild))
             {
                 isBuilt = true;
+                collectionRegistrations = null;
 
                 try
                 {
@@ -108,9 +111,9 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
             {
                 if (HasComponent(implementedInterface))
                 {
-                    var existingRegistration = GetExistingRegistrationsFor(implementedInterface);
+                    var existingRegistration = GetExistingCollectionRegistrationsFor(implementedInterface);
 
-                    container.RegisterCollection(implementedInterface, existingRegistration.Union(new[] { registration }));
+                    RegisterCollection(implementedInterface, existingRegistration.Union(new[] { registration }));
                 }
                 else
                 {
@@ -145,9 +148,9 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
             {
                 if (HasComponent(implementedInterface))
                 {
-                    var existingRegistration = GetExistingRegistrationsFor(implementedInterface);
+                    var existingRegistration = GetExistingCollectionRegistrationsFor(implementedInterface);
 
-                    container.RegisterCollection(implementedInterface, existingRegistration.Union(new[] { registration }));
+                    RegisterCollection(implementedInterface, existingRegistration.Union(new[] { registration }));
                 }
                 else
                 {
@@ -156,6 +159,23 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
             }
 
             container.AddRegistration(funcType, registration);
+        }
+
+        void RegisterCollection(Type implementedInterface, IEnumerable<Registration> registrations)
+        {
+            container.RegisterCollection(implementedInterface, registrations);
+
+            collectionRegistrations[implementedInterface] = registrations;
+        }
+
+        IEnumerable<Registration> GetExistingCollectionRegistrationsFor(Type implementedInterface)
+        {
+            if (collectionRegistrations.ContainsKey(implementedInterface))
+            {
+                return collectionRegistrations[implementedInterface];
+            }
+
+            return GetExistingRegistrationsFor(implementedInterface);
         }
 
         IEnumerable<Registration> GetExistingRegistrationsFor(Type implementedInterface)

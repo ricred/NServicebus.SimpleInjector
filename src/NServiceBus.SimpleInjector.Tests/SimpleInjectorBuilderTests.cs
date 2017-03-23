@@ -46,5 +46,24 @@ namespace NServiceBus.SimpleInjector.Tests
             var resolve = childContainer.Build(typeof(TestType));
             Assert.True(funcCalled);
         }
+
+        [Test]
+        public void Registering_Multiple_Types_Should_Resolve_All_Types()
+        {
+            var builder = new SimpleInjectorObjectBuilder();
+
+            builder.Configure(typeof(FirstImplementation), DependencyLifecycle.InstancePerUnitOfWork);
+            builder.Configure(typeof(SecondImplementation), DependencyLifecycle.InstancePerUnitOfWork);
+            builder.Configure(typeof(FirstImplementation), DependencyLifecycle.InstancePerUnitOfWork);
+
+            var allTypes = builder.BuildAll(typeof(IInterface));
+
+            Assert.AreEqual(3, allTypes.Count());
+        }
     }
+
+    interface IInterface { }
+    class FirstImplementation : IInterface { }
+    class SecondImplementation : IInterface { }
+    class ThirdImplementation : IInterface { }
 }
