@@ -9,5 +9,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("NServiceBus")]
 [assembly: AssemblyCompany("NServiceBus Ltd.")]
 [assembly: ComVisible(false)]
-[assembly: CLSCompliant(true)]
+[assembly: CLSCompliant(false)]
 [assembly: InternalsVisibleTo("NServiceBus.SimpleInjector.Tests")]

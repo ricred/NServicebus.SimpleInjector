@@ -2,7 +2,6 @@
 using NServiceBus.AcceptanceTests.EndpointTemplates;
 using NServiceBus.Features;
 using NUnit.Framework;
-using SimpleInjector.Extensions.ExecutionContextScoping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +32,11 @@ namespace NServiceBus.SimpleInjector.AcceptanceTests
         {
             public Endpoint()
             {
-                EndpointSetup<DefaultServer>(config => config.EnableFeature<TimeoutManager>());
+                EndpointSetup<DefaultServer>(config =>
+                {
+                    config.EnableFeature<TimeoutManager>();
+                    config.SendFailedMessagesTo("error");
+                });
             }
 
             public class MyMessageHandler : Saga<TestSagaData>,

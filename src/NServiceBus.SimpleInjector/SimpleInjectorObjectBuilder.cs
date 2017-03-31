@@ -6,9 +6,9 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
     using System.Reflection;
     using NServiceBus.SimpleInjector;
     using global::SimpleInjector;
-    using global::SimpleInjector.Extensions.ExecutionContextScoping;
     using Janitor;
     using System.Threading;
+    using global::SimpleInjector.Lifestyles;
 
     class SimpleInjectorObjectBuilder : Common.IContainer
     {
@@ -31,10 +31,10 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
             container = new Container();
             container.AllowToResolveArraysAndLists();
             container.Options.AllowOverridingRegistrations = true;
-            container.Options.DefaultScopedLifestyle = new ExecutionContextScopeLifestyle();
+            container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
             container.Options.AutoWirePropertiesImplicitly();
 
-            container.BeginExecutionContextScope();
+            AsyncScopedLifestyle.BeginScope(container);
         }
 
         public void Dispose()

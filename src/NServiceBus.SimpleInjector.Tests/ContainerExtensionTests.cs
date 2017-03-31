@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NServiceBus.ObjectBuilder;
 using SimpleInjector;
-using SimpleInjector.Extensions.ExecutionContextScoping;
+using SimpleInjector.Lifestyles;
 
 namespace NServiceBus.SimpleInjector.Tests
 {
@@ -51,8 +51,8 @@ namespace NServiceBus.SimpleInjector.Tests
         public void Cloning_A_Container_Allows_Resolving_Child_Scoped_Variables()
         {
             var container = new global::SimpleInjector.Container();
-            container.Options.DefaultScopedLifestyle = new ExecutionContextScopeLifestyle();
-            container.BeginExecutionContextScope();
+            container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
+            AsyncScopedLifestyle.BeginScope(container);
 
             container.Register<TestType>(Lifestyle.Scoped);
 

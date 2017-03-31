@@ -1,13 +1,10 @@
 ﻿using NServiceBus.SimpleInjector;
 using SimpleInjector;
-using SimpleInjector.Extensions.ExecutionContextScoping;
+using SimpleInjector.Lifestyles;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NServiceBus.ObjectBuilder
 {
@@ -26,10 +23,10 @@ namespace NServiceBus.ObjectBuilder
             var clonedContainer = new global::SimpleInjector.Container();
             clonedContainer.AllowToResolveArraysAndLists();
             clonedContainer.Options.AllowOverridingRegistrations = true;
-            clonedContainer.Options.DefaultScopedLifestyle = new ExecutionContextScopeLifestyle();
+            clonedContainer.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
             clonedContainer.Options.AutoWirePropertiesImplicitly();
 
-            clonedContainer.BeginExecutionContextScope();
+            AsyncScopedLifestyle.BeginScope(clonedContainer);
 
             foreach (var reg in parentContainer.GetCurrentRegistrations())
             {
@@ -51,7 +48,7 @@ namespace NServiceBus.ObjectBuilder
         {
             yield return CreateRegistrationFromPrivateField(registrationToCopy, container, "instanceCreator");
             yield return CreateRegistrationFromPrivateField(registrationToCopy, container, "userSuppliedInstanceCreator");
-            yield return registrationToCopy.Lifestyle.CreateRegistration(registrationToCopy.ServiceType, registrationToCopy.Registration.ImplementationType, container);
+            yield return registrationToCopy.Lifestyle.CreateRegistration(registrationToCopy.ServiceType, container);
         }
 
         static Registration CreateRegistrationFromPrivateField(InstanceProducer instanceProducer, global::SimpleInjector.Container container, string privateFieldName)

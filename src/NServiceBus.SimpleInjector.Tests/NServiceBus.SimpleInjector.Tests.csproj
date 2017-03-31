@@ -55,18 +55,13 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="NServiceBus.Core, Version=6.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NServiceBus.6.1.3\lib\net452\NServiceBus.Core.dll</HintPath>
+      <HintPath>..\packages\NServiceBus.6.2.0\lib\net452\NServiceBus.Core.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=3.6.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleInjector, Version=3.3.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleInjector.3.3.2\lib\net45\SimpleInjector.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SimpleInjector.Extensions.ExecutionContextScoping, Version=3.3.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleInjector.Extensions.ExecutionContextScoping.3.3.2\lib\net45\SimpleInjector.Extensions.ExecutionContextScoping.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SimpleInjector, Version=4.0.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.4.0.0\lib\net45\SimpleInjector.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -77,12 +72,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Packages\NSB.ContainerTests.6.1.3\TestContainerBuilder.cs" />
-    <Compile Include="App_Packages\NSB.ContainerTests.6.1.3\When_building_components.cs" />
-    <Compile Include="App_Packages\NSB.ContainerTests.6.1.3\When_disposing_the_builder.cs" />
-    <Compile Include="App_Packages\NSB.ContainerTests.6.1.3\When_querying_for_registered_components.cs" />
-    <Compile Include="App_Packages\NSB.ContainerTests.6.1.3\When_registering_components.cs" />
-    <Compile Include="App_Packages\NSB.ContainerTests.6.1.3\When_using_nested_containers.cs" />
+    <Compile Include="App_Packages\NSB.ContainerTests.6.2.0\TestContainerBuilder.cs" />
+    <Compile Include="App_Packages\NSB.ContainerTests.6.2.0\When_building_components.cs" />
+    <Compile Include="App_Packages\NSB.ContainerTests.6.2.0\When_disposing_the_builder.cs" />
+    <Compile Include="App_Packages\NSB.ContainerTests.6.2.0\When_querying_for_registered_components.cs" />
+    <Compile Include="App_Packages\NSB.ContainerTests.6.2.0\When_registering_components.cs" />
+    <Compile Include="App_Packages\NSB.ContainerTests.6.2.0\When_using_nested_containers.cs" />
     <Compile Include="ContainerExtensionTests.cs" />
     <Compile Include="SetUpFixture.cs" />
     <Compile Include="SimpleInjectorBuilderTests.cs" />

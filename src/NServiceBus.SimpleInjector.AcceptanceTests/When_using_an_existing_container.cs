@@ -6,7 +6,7 @@
     using NServiceBus.AcceptanceTests.EndpointTemplates;
     using NUnit.Framework;
     using NServiceBus;
-    using global::SimpleInjector.Extensions.ExecutionContextScoping;
+    using global::SimpleInjector.Lifestyles;
 
     public class When_using_an_existing_container : NServiceBusAcceptanceTest
     {
@@ -37,14 +37,18 @@
             public Endpoint()
             {
                 var container = new global::SimpleInjector.Container();
-                container.Options.DefaultScopedLifestyle = new ExecutionContextScopeLifestyle();
+                container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
                 container.Register(() => new MyService { Id = "Created outside" }, global::SimpleInjector.Lifestyle.Scoped);
 
-                EndpointSetup<DefaultServer>(config => config.UseContainer<SimpleInjectorBuilder>(customization =>
+                EndpointSetup<DefaultServer>(config =>
                 {
-                    customization.UseExistingContainer(container);
-                }));
+                    config.UseContainer<SimpleInjectorBuilder>(customization =>
+                    {
+                        customization.UseExistingContainer(container);
+                    });
+                    config.SendFailedMessagesTo("error");
+                });
             }
 
             public class MyMessageHandler : IHandleMessages<MyMessage>

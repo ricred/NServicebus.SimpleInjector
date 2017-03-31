@@ -54,7 +54,7 @@ namespace NServiceBus.SimpleInjector.Tests
 
             builder.Configure(typeof(FirstImplementation), DependencyLifecycle.InstancePerUnitOfWork);
             builder.Configure(typeof(SecondImplementation), DependencyLifecycle.InstancePerUnitOfWork);
-            builder.Configure(typeof(FirstImplementation), DependencyLifecycle.InstancePerUnitOfWork);
+            builder.Configure(typeof(ThirdImplementation), DependencyLifecycle.InstancePerUnitOfWork);
 
             var allTypes = builder.BuildAll(typeof(IInterface));
 

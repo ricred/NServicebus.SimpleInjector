@@ -41,7 +41,10 @@
         {
             public Endpoint()
             {
-                EndpointSetup<DefaultServer>();
+                EndpointSetup<DefaultServer>(config =>
+                {
+                    config.SendFailedMessagesTo("error");
+                });
             }
 
             public class MyMessageHandler : IHandleMessages<MyMessage>
