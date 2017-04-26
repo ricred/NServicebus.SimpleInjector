@@ -158,6 +158,7 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
         void RegisterCollection(Type implementedInterface, IEnumerable<Registration> registrations)
         {
 
+
             container.RegisterCollection(implementedInterface, registrations);
 
             collectionRegistrations[implementedInterface] = registrations;
