@@ -15,15 +15,15 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
         [SkipWeaving]
         Container container;
 
-        bool isChildContainer;
-        bool isBuilt = false;
+        bool externalContainer=false;
         Dictionary<Type, IEnumerable<Registration>> collectionRegistrations = new Dictionary<Type, IEnumerable<Registration>>();
 
         public SimpleInjectorObjectBuilder(Container parentContainer)
         {
-            container = parentContainer.Clone();
+            container = parentContainer;
 
-            isChildContainer = true;
+            externalContainer = true;
+            AsyncScopedLifestyle.BeginScope(container);
         }
 
         public SimpleInjectorObjectBuilder()
@@ -52,7 +52,7 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
                 scopeTemp.Dispose();
             }
 
-            if (!isChildContainer)
+            if (!externalContainer)
             {
                 var temp = Interlocked.Exchange(ref container, null);
                 if (temp != null)
@@ -73,8 +73,7 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
             {
                 throw new ActivationException("The requested type is not registered yet");
             }
-
-            isBuilt = true;
+            
             collectionRegistrations = null;
 
             return container.GetInstance(typeToBuild);
@@ -84,7 +83,6 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
         {
             if (HasComponent(typeToBuild))
             {
-                isBuilt = true;
                 collectionRegistrations = null;
 
                 try
@@ -103,8 +101,6 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
 
         public void Configure(Type component, DependencyLifecycle dependencyLifecycle)
         {
-            EnsureContainerIsConfigurable();
-
             var registration = GetRegistrationFromDependencyLifecycle(dependencyLifecycle, component);
 
             foreach (var implementedInterface in component.GetInterfaces())
@@ -139,8 +135,6 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
 
         public void Configure<T>(Func<T> componentFactory, DependencyLifecycle dependencyLifecycle)
         {
-            EnsureContainerIsConfigurable();
-
             var funcType = typeof(T);
             var registration = GetRegistrationFromDependencyLifecycle(dependencyLifecycle, funcType, () => componentFactory());
 
@@ -163,6 +157,7 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
 
         void RegisterCollection(Type implementedInterface, IEnumerable<Registration> registrations)
         {
+
             container.RegisterCollection(implementedInterface, registrations);
 
             collectionRegistrations[implementedInterface] = registrations;
@@ -187,18 +182,10 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
         {
             return GetExistingRegistrationsFor(typeof(TType));
         }
-
-        private void EnsureContainerIsConfigurable()
-        {
-            if (isBuilt)
-            {
-                container = container.Clone();
-            }
-        }
+        
 
         public void RegisterSingleton(Type lookupType, object instance)
         {
-            EnsureContainerIsConfigurable();
 
             var registration = GetRegistrationFromDependencyLifecycle(DependencyLifecycle.SingleInstance, lookupType, instance);
 

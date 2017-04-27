@@ -1,3 +1,7 @@
+using NServiceBus.ObjectBuilder;
+using NServiceBus.SimpleInjector;
+using SimpleInjector.Lifestyles;
+
 namespace NServiceBus
 {
     using Container;
