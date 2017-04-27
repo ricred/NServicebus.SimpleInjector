@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.SimpleInjector", "NServiceBus.SimpleInjector\NServiceBus.SimpleInjector.csproj", "{73EC4EBE-826D-4A0A-8837-51D3458FC2A8}"
 EndProject
@@ -13,6 +13,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.SimpleInjector.AcceptanceTests", "NServiceBus.SimpleInjector.AcceptanceTests\NServiceBus.SimpleInjector.AcceptanceTests.csproj", "{1F6829BB-2B45-4A2D-9874-44DED5657FBB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.SimpleInjector.Tests", "NServiceBus.SimpleInjector.Tests\NServiceBus.SimpleInjector.Tests.csproj", "{22008780-552A-4047-95F5-A6C2BDB790B1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2E83771E-6B6A-47F6-B5F5-5151D90AD873}"
+	ProjectSection(SolutionItems) = preProject
+		..\packaging\nuget\NServiceBus.SimpleInjector.nuspec = ..\packaging\nuget\NServiceBus.SimpleInjector.nuspec
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
