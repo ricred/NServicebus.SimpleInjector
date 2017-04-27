@@ -19,12 +19,11 @@ namespace NServiceBus
         public static void UseExistingContainer(this ContainerCustomizations customizations, global::SimpleInjector.Container container)
         {
             if (!container.Options.AllowOverridingRegistrations)
-                throw new ArgumentException("Invalid container - must set AllowOverridingRegistrations");
+                throw new ArgumentException("Invalid container configuration - must set Options.AllowOverridingRegistrations to true");
             if (!(container.Options.DefaultScopedLifestyle is AsyncScopedLifestyle))
-                throw new ArgumentException("Invalid container - must set DefaultScopedLifestyle to AsyncScopedLifestyle");
+                throw new ArgumentException("Invalid container configuration - must set DefaultScopedLifestyle to AsyncScopedLifestyle");
             if (!(container.Options.PropertySelectionBehavior is ImplicitPropertyInjectionExtensions.ImplicitPropertyInjectionBehavior))
-                throw new ArgumentException("Invalid container - must set AutoWirePropertiesImplicitly");
-
+                throw new ArgumentException("Invalid container - must set properties to be autowired (by calling Options.AutoWirePropertiesImplicitly())");
 
             customizations.Settings.Set<ContainerHolder>(new ContainerHolder(container));
         }

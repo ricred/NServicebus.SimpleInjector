@@ -11,7 +11,6 @@ namespace NServiceBus.SimpleInjector.Tests
 {
     public class SimpleInjectorBuilderTests
     {
-        class TestType { }
         [Test]
         public void Passing_A_Func_Uses_The_Func_To_Resolve()
         {
@@ -63,6 +62,7 @@ namespace NServiceBus.SimpleInjector.Tests
         }
     }
 
+    class TestType { }
     interface IInterface { }
     class FirstImplementation : IInterface { }
     class SecondImplementation : IInterface { }

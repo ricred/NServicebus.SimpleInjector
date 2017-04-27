@@ -80,6 +80,7 @@
     <Compile Include="App_Packages\NSB.ContainerTests.6.2.0\When_using_nested_containers.cs" />
     <Compile Include="SetUpFixture.cs" />
     <Compile Include="SimpleInjectorBuilderTests.cs" />
+    <Compile Include="ExistingContainerConfigurationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

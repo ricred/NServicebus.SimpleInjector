@@ -20,7 +20,6 @@
 
             Assert.IsTrue(context.PropertyWasInjected);
         }
-        
 
         public class MyService
         {

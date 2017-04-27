@@ -74,7 +74,6 @@
   <ItemGroup>
     <Compile Include="CollectionRegistrationExtensions.cs" />
     <Compile Include="ConfigurationExtensionMethods.cs" />
-    <Compile Include="ContainerExtensionMethods.cs" />
     <Compile Include="SimpleInjectorBuilder.cs" />
     <Compile Include="SimpleInjectorObjectBuilder.cs" />
     <Compile Include="AssemblyInfo.cs" />

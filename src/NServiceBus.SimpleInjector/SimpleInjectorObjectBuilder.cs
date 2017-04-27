@@ -15,7 +15,7 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
         [SkipWeaving]
         Container container;
 
-        bool externalContainer=false;
+        bool externalContainer = false;
         Dictionary<Type, IEnumerable<Registration>> collectionRegistrations = new Dictionary<Type, IEnumerable<Registration>>();
 
         public SimpleInjectorObjectBuilder(Container parentContainer)
@@ -122,7 +122,7 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
                 var existingRegistration = GetExistingRegistrationsFor(component);
 
                 var first = existingRegistration.First();
-                if (!first.IsEqualTo(registration))
+                if (!AreRegistrationsEqual(first, registration))
                 {
                     container.RegisterCollection(component, existingRegistration.Union(new[] { registration }));
                 }
@@ -158,7 +158,6 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
         void RegisterCollection(Type implementedInterface, IEnumerable<Registration> registrations)
         {
 
-
             container.RegisterCollection(implementedInterface, registrations);
 
             collectionRegistrations[implementedInterface] = registrations;
@@ -184,7 +183,6 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
             return GetExistingRegistrationsFor(typeof(TType));
         }
         
-
         public void RegisterSingleton(Type lookupType, object instance)
         {
 
@@ -245,6 +243,12 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
         Registration GetRegistrationFromDependencyLifecycle(DependencyLifecycle dependencyLifecycle, Type component, object instance)
         {
             return GetRegistrationFromDependencyLifecycle(dependencyLifecycle, component, () => instance);
+        }
+
+        bool AreRegistrationsEqual(Registration registration, Registration otherRegistration)
+        {
+            return registration.Lifestyle == otherRegistration.Lifestyle
+                && registration.ImplementationType == registration.ImplementationType;
         }
 
         static void SetPropertyValue(object instance, string propertyName, object value)
