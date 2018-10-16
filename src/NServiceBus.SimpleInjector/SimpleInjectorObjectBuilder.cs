@@ -31,7 +31,7 @@ namespace NServiceBus.ObjectBuilder.SimpleInjector
             container.AllowToResolveArraysAndLists();
             container.Options.AllowOverridingRegistrations = true;
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
-            container.Options.AutoWirePropertiesImplicitly();
+            //container.Options.AutoWirePropertiesImplicitly();
 
             AsyncScopedLifestyle.BeginScope(container);
         }
